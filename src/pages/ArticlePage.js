@@ -1,8 +1,17 @@
 import React from 'react';
-
-const ArticlePage = () => (
+import articleContent from './article-content';
+const ArticlePage = ({match}) => {
+    //getting the name from url parameters
+    const name = match.params.name;       
+    const article = articleContent.find(article => article.name===name);
+    if(!article) return <h1>Article Does Not Exist</h1>
+    return (
     <React.Fragment>
-        <h1>This is an article</h1>
+        <h1>{article.title}</h1>
+        {article.content.map((paragraph, key)=>(
+            <p key={key}>{paragraph}</p>
+        )) }
     </React.Fragment>
-)
+    );
+}
 export default ArticlePage;
